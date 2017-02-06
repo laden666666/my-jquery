@@ -1,0 +1,28 @@
+{
+  "name": "my-jquery",
+  "version": "0.0.1",
+  "description": "一个jquery的模拟实现",
+  "scripts": {
+    "test": "webpack;mocha ./test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laden666666/my-jquery.git"
+  },
+  "keywords": [
+    "jquery"
+  ],
+  "author": "laden666666",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "jsdom": "^9.9.1",
+    "mocha": "^3.2.0",
+    "mocha-cli": "^1.0.1"
+  },
+  "bugs": {
+    "url": "https://github.com/laden666666/my-jquery/issues"
+  },
+  "homepage": "https://github.com/laden666666/my-jquery#readme",
+  "dependencies": {}
+}

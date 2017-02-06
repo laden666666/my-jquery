@@ -1,0 +1,2 @@
+# picker
+一个jquery的模拟实现,计划不超过8k实现jquery的一些核心功能
