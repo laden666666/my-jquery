@@ -299,6 +299,7 @@
 //
 // on(eve,[sel],[data],fn)1.7+
 // off(eve,[sel],[fn])
+// toggle(eve,[sel],[fn])
 //
 	}
 
