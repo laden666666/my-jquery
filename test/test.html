@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>跑在实际页面中的测试用例</title>
     <script src="src/my-jquery.js"></script>
 </head>
 <body>
-    <div><span>xxx</span></div>
+<div><span>xxx</span></div>
 <script>
     //克隆测试
     a = $('div').find('span');
@@ -17,7 +17,7 @@
     a = $("<div></div>")
     a.append("<span>111</span>")
     a.find("span").after("<span>2222</span>")
-    a.find("span").before("<span>0000</span>")
+    a.prepend("<span>0000</span>")
 </script>
 </body>
 </html>

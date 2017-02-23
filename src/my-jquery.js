@@ -2,11 +2,11 @@
 	"use strict"
 
 	if ( typeof module === "object" && typeof module.exports === "object" ) {
-		module.exports = factory();
+		module.exports = factory;
 	} else {
-		global.$ = factory();
+		global.$ = factory(global.document);
 	}
-})(window, function () {
+})(typeof window !== "undefined" ? window : this, function (document) {
 
 	//用于使用innerHTML生成dom的div
 	var div = document.createElement("DIV");
@@ -50,7 +50,7 @@
 	//一个模板,用于生成setter和getter重载函数
 	function access(myjq, setter, getter, key, value) {
 		//是否是setter方法,如果是setter方法,value不能是undefined
-		return value === undefined ? getter(myjq[0], key) : myjq.each(function (index, item) {
+		return value === undefined ? (myjq.length ? getter(myjq[0], key) : undefined) : myjq.each(function (index, item) {
 			return setter(item, key, value)
 		})
 	}
@@ -144,6 +144,10 @@
 			return this;
 		},
 
+		eq: function(i){
+			return $(this[i]);
+		},
+
 		//往集合增加一个dom
 		add: function (item) {
 			if(item && item.nodeType == 1){
@@ -172,7 +176,7 @@
 		},
 		prepend: function(child){
 			insertDom(this, $(child), function ( parent,child) {
-				parent.childNodes.length ? parent.append(child) : parent.insertBefore(child, parent.childNodes[0]);
+				parent.childNodes.length ?  parent.insertBefore(child, parent.childNodes[0]) : parent.appendChild(child);
 			})
 			return this;
 		},
@@ -201,7 +205,7 @@
 			return this;
 		},
 		insertBefore: function(parent){
-			$(parent)[0].before(this[0]);
+			$(parent).before(this);
 			return $(this[0]);
 		},
 
@@ -256,6 +260,10 @@
 			});
 		},
 
+		hasClass: function (className) {
+			return this.length ? this[0].classList.contains(className) : false;
+		},
+
 		toggleClass: function (className) {
 			return this.each(function (i, item) {
 				if(className) {
@@ -299,13 +307,6 @@
 				return item.value;
 			}, "-", value)
 		},
-		val: function(value) {
-			return access(this, function (item, key, value) {
-				item.value = value;
-			}, function (item, key) {
-				return item.value;
-			}, "-", value)
-		},
 		hide: function() {
 			return this.each(function (i, item) {
 				if(item.style.display){
@@ -319,7 +320,13 @@
 				item.style.display= $(item).data("my-jquery-style-display") || "";
 			})
 		},
-
+		css: function (key, value) {
+			return access(this, function (item, key, value) {
+				item.style[key] = value;
+			}, function (item, key) {
+				return item.style[key];
+			}, key, value)
+		}
 //
 // on(eve,[sel],[data],fn)1.7+
 // off(eve,[sel],[fn])
