@@ -1,7 +1,11 @@
 (function (global, factory) {
 	"use strict"
 
-	global.$ = factory();
+	if ( typeof module === "object" && typeof module.exports === "object" ) {
+		module.exports = factory();
+	} else {
+		global.$ = factory();
+	}
 })(window, function () {
 
 	//用于使用innerHTML生成dom的div
