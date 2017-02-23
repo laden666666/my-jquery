@@ -298,7 +298,27 @@
 			}, function (item, key) {
 				return item.value;
 			}, "-", value)
-		}
+		},
+		val: function(value) {
+			return access(this, function (item, key, value) {
+				item.value = value;
+			}, function (item, key) {
+				return item.value;
+			}, "-", value)
+		},
+		hide: function() {
+			return this.each(function (i, item) {
+				if(item.style.display){
+					$(item).data("my-jquery-style-display",item.style.display);
+				}
+				item.style.display="none";
+			})
+		},
+		show: function() {
+			return this.each(function (i, item) {
+				item.style.display= $(item).data("my-jquery-style-display") || "";
+			})
+		},
 
 //
 // on(eve,[sel],[data],fn)1.7+
