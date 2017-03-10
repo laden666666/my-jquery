@@ -326,9 +326,11 @@
 			}, function (item, key) {
 				return item.style[key];
 			}, key, value)
-		}
-//
-// on(eve,[sel],[data],fn)1.7+
+		},
+
+		on: function(eventName,fn){
+
+		},
 // off(eve,[sel],[fn])
 // toggle(eve,[sel],[fn])
 //
