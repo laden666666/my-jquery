@@ -8,7 +8,7 @@ var jsdom = require("jsdom");
 var fs = require("fs");
 var assert = require('chai').assert;
 var myjquery = fs.readFileSync("./src/my-jquery.js", "utf-8");
-//使用jquery测试测试用例
+//使用jquery测试，用于做对比试验时候使用
 // var myjquery = fs.readFileSync("./test/jquery.js", "utf-8");
 
 describe('myjquery选择器', function () {
@@ -286,4 +286,8 @@ describe('dom相关操作', function () {
             }
         });
     });
+    
+//  on
+//  off
+//  togger
 });
