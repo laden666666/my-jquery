@@ -287,7 +287,161 @@ describe('dom相关操作', function () {
         });
     });
     
-//  on
-//  off
-//  togger
+});
+
+
+describe('事件相关操作', function () {
+
+    it('myjquery的on函数', function (done) {
+
+        var htmlTemplate =
+            `<html>
+            <body>
+                <button id="button"></button>
+            </body>
+        </html>`;
+
+        var jsdom = require('jsdom');
+        jsdom.env({
+            html: htmlTemplate,
+            src: [myjquery],
+            done: function (error, window) {
+                var $ = window.$;
+                $("#button").on("click", function () {
+                    done();
+                });
+
+                $("#button")[0].click();
+            }
+        });
+    });
+
+    it('myjquery的事件冒泡阻止', function (done) {
+
+        var htmlTemplate =
+            `<html>
+            <body>
+                <button id="button"></button>
+            </body>
+        </html>`;
+
+        var jsdom = require('jsdom');
+        jsdom.env({
+            html: htmlTemplate,
+            src: [myjquery],
+            done: function (error, window) {
+                var $ = window.$;
+
+                var timer = setTimeout(function () {
+                    done();
+                }, 100)
+
+                $("body").on("click", function () {
+                    clearTimeout(timer)
+                });
+
+                $("#button").on("click", function () {
+                    return false;
+                });
+
+                $("#button")[0].click();
+            }
+        });
+    });
+
+
+    it('myjquery的off函数，解除事件', function (done) {
+
+        var htmlTemplate =
+            `<html>
+            <body>
+                <button id="button"></button>
+            </body>
+        </html>`;
+
+        var jsdom = require('jsdom');
+        jsdom.env({
+            html: htmlTemplate,
+            src: [myjquery],
+            done: function (error, window) {
+                var $ = window.$;
+
+                var timer = setTimeout(function () {
+                    done();
+                }, 100)
+
+                $("#button").on("click", function () {
+                    clearTimeout(timer)
+                });
+
+                $("#button").off("click");
+
+                $("#button")[0].click();
+            }
+        });
+    });
+
+    it('myjquery的局部解除事件', function (done) {
+
+        var htmlTemplate =
+            `<html>
+            <body>
+                <button id="button"></button>
+            </body>
+        </html>`;
+
+        var jsdom = require('jsdom');
+        jsdom.env({
+            html: htmlTemplate,
+            src: [myjquery],
+            done: function (error, window) {
+                var $ = window.$;
+                var arr = []
+
+                var fn1 = function () {
+                    arr.push(1)
+                }
+                var fn2 = function () {
+                    arr.push(2)
+                }
+
+                $("#button").on("click", fn1);
+                $("#button").on("click", fn2);
+
+                $("#button").off("click", fn1);
+
+                $("#button")[0].click();
+
+                assert.equal(arr[0], 2);
+
+                done()
+            }
+        });
+    });
+
+
+    it('myjquery的toggle函数', function (done) {
+
+        var htmlTemplate =
+            `<html>
+            <body>
+                <button id="button"></button>
+            </body>
+        </html>`;
+
+        var jsdom = require('jsdom');
+        jsdom.env({
+            html: htmlTemplate,
+            src: [myjquery],
+            done: function (error, window) {
+                var $ = window.$;
+
+                $("#button").on("click", function () {
+                    done()
+                });
+
+                $("#button").toggle('click');
+            }
+        });
+    });
 });

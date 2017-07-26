@@ -328,12 +328,66 @@
 			}, key, value)
 		},
 
-		on: function(eventName,fn){
+		on: function(eventName, fn){
+            return this.each(function (i, item) {
+                if(typeof fn != 'function'){
+                	return;
+                }
+
+            	//注册的函数
+            	var cacheFn = function (event) {
+					if(fn.call(this, event) === false){
+						event.preventDefault();
+						event.stopPropagation();
+					}
+                }
+                cacheFn.fn = fn;
+
+                //缓存该函数
+                var cacheEvent = $(item).data("my-jquery-event-cache") || {};
+                cacheEvent[eventName] = cacheEvent[eventName] || [];
+                cacheEvent[eventName].push(cacheFn)
+
+                this.addEventListener(eventName, cacheFn, false);
+                $(this).data("my-jquery-event-cache", cacheEvent)
+            })
+		},
+		off: function(eventName, fn){
+            return this.each(function (i, item) {
+                var cacheEvent = $(this).data("my-jquery-event-cache");
+
+                if(!cacheEvent)
+                	return;
+
+                var self = this;
+                if(cacheEvent[eventName] instanceof Array){
+                	var tempArr = [];
+                    cacheEvent[eventName].forEach(function (cacheFn) {
+                        if(typeof fn == 'function'){
+                        	if( fn == cacheFn.fn){
+                                self.removeEventListener(eventName, cacheFn, false);
+                            } else {
+                                tempArr.push(cacheFn)
+                            }
+                        } else {
+                            self.removeEventListener(eventName, cacheFn, false);
+						}
+                    })
+
+                    cacheEvent[eventName] = tempArr;
+                    $(this).data("my-jquery-event-cache", cacheEvent)
+                }
+            })
 
 		},
-// off(eve,[sel],[fn])
-// toggle(eve,[sel],[fn])
-//
+		toggle: function(eventName){
+            return this.each(function (i, item) {
+            	if(typeof this[eventName] == 'function'){
+                    this[eventName]();
+				}
+            })
+		}
+
 	}
 
 	$.fn.init.prototype = $.fn;
