@@ -69,11 +69,13 @@
 		if(item.nodeType == 1){
 			delete item[dataKey];
 			arr = item.children;
-		} else if(Object.prototype.toString.call(item) === '[object Array]'){
+		} else if(item && item.length != null){
 			arr = item;
+		} else {
+			return;
 		}
 
-		for(var i; arr.length; i++){
+		for(var i; i < arr.length; i++){
 			clearData(arr[i]);
 		}
 	}
@@ -287,8 +289,8 @@
 
 		html: function(value) {
 			return access(this, function (item, key, value) {
-				clearData(item.children);
-				item[key] = value;
+				clearData(item.children || {length : 0});
+				item.innerHTML = value;
 			}, function (item, key) {
 				return item.innerHTML;
 			}, "-", value)

@@ -286,6 +286,33 @@ describe('dom相关操作', function () {
             }
         });
     });
+
+    it('myjquery的html函数', function (done) {
+
+        var htmlTemplate =
+            `<html>
+            <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            </head>
+            <body>
+                <div id="div"></div>
+            </body>
+        </html>`;
+
+        var jsdom = require('jsdom');
+        jsdom.env({
+            html: htmlTemplate,
+            src: [myjquery],
+            done: function (error, window) {
+                var $ = window.$;
+                $("#div").html("<span id='span'></span>")
+                assert.equal($("#span").length, 1);
+                $("#div").html("")
+                assert.equal($("#span").length, 0);
+                done();
+            }
+        });
+    });
     
 });
 
@@ -441,6 +468,33 @@ describe('事件相关操作', function () {
                 });
 
                 $("#button").toggle('click');
+            }
+        });
+    });
+
+
+    it('myjquery的事件克隆', function (done) {
+
+        var htmlTemplate =
+            `<html>
+            <body>
+                <div class="div"></div>
+                <div class="div"></div>
+            </body>
+        </html>`;
+
+        var jsdom = require('jsdom');
+        jsdom.env({
+            html: htmlTemplate,
+            src: [myjquery],
+            done: function (error, window) {
+                var $ = window.$;
+
+                $(".div").append($("<button>").on('click', function () {
+                    done()
+                }))
+
+                $("button").eq(1).toggle('click');
             }
         });
     });
