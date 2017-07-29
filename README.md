@@ -1,3 +1,9 @@
+<p align="center">
+    <a href="https://www.npmjs.com/package/my-jquery"><img src="https://img.shields.io/npm/dm/my-jquery.svg" alt="Downloads"></a>
+    <a href="https://www.npmjs.com/package/my-jquery"><img src="https://img.shields.io/npm/v/my-jquery.svg" alt="Version"></a>
+    <a href="https://www.npmjs.com/package/my-jquery"><img src="https://img.shields.io/npm/l/my-jquery.svg" alt="License"></a>
+</p>
+
 # my-jquery
 一个jquery的模拟实现,计划不超过8k实现jquery的一些核心功能。与jQuery不同，my-jquery设计的目的不是解决浏览器兼容问题，而是致力于实现一个现代浏览器的轻量级dom操作库。my-jquery的api取自jQuery，但去除了如ajax、动画等功能，专注于dom处理。主要包括功能有：
 
