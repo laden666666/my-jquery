@@ -122,6 +122,22 @@ describe('样式相关操作', function () {
             src: [myjquery],
             done: function (error, window) {
                 var $ = window.$;
+                $(".h1").css("color", 'red');
+                assert.equal($(".h1").css("color"), 'red');
+                $(".h1").css("font-size", '18px');
+                assert.equal($(".h1")[0].style["fontSize"], '18px');
+                done();
+            }
+        });
+    });
+
+    it('myjquery的css函数', function (done) {
+        var jsdom = require('jsdom');
+        jsdom.env({
+            html: htmlTemplate,
+            src: [myjquery],
+            done: function (error, window) {
+                var $ = window.$;
                 $(".h1").toggleClass("h2");
                 assert.equal($("#h1")[0].classList.contains('h2'), true);
                 $(".h1").toggleClass("h2");

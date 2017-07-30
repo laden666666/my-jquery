@@ -55,7 +55,14 @@
 		})
 	}
 
-	//克隆dom
+    //短横线隔开式命名转驼峰命名
+    function toCamelCase(name) {
+        return name.replace(/-\S/g, function (splitChar) {
+            return splitChar[1].toUpperCase();
+        });
+    }
+
+    //克隆dom
 	function domClone(item, hasSystem) {
 		var dom = item.cloneNode(true);
 		hasSystem && item[dataKey] && (dom[dataKey] = item[dataKey]);
@@ -324,9 +331,9 @@
 		},
 		css: function (key, value) {
 			return access(this, function (item, key, value) {
-				item.style[key] = value;
+				item.style[toCamelCase(key)] = value;
 			}, function (item, key) {
-				return item.style[key];
+				return item.style[toCamelCase(key)];
 			}, key, value)
 		},
 
