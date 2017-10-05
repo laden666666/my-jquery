@@ -36,7 +36,7 @@ each
 eq、add、find
 
 ## DOM操作相关 DOM operation
-append、appendTo、prepend、prependTo、after、insertAfter、before、insertBefore、clone
+append、appendTo、prepend、prependTo、after、insertAfter、before、insertBefore、clone、remove
 
 ## 数据相关 data
 data
