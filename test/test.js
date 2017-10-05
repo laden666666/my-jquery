@@ -330,6 +330,35 @@ describe('dom相关操作', function () {
         });
     });
     
+
+    it('myjquery的remove函数', function (done) {
+        
+        var htmlTemplate =
+            `<html>
+            <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            </head>
+            <body>
+                <div id="div">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </body>
+        </html>`;
+
+        var jsdom = require('jsdom');
+        jsdom.env({
+            html: htmlTemplate,
+            src: [myjquery],
+            done: function (error, window) {
+                var $ = window.$;
+                $("#div span").remove()
+                assert.equal($("#div span").length, 0);
+                done();
+            }
+        });
+    });
 });
 
 

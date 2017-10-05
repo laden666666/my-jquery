@@ -172,7 +172,7 @@
 			},selector)
 		},
 
-		//用于将
+		//用于将文档增添于
 		append : function(child){
 			insertDom(this, $(child), function ( parent,child) {
 				parent.appendChild(child);
@@ -217,7 +217,7 @@
 			$(parent).before(this);
 			return $(this[0]);
 		},
-
+		
 		clone: function () {
 			var arr = [];
 			this.each(function (i, item) {
@@ -226,6 +226,16 @@
 			return $(arr);
 		},
 
+		/**
+		 * 删除dom
+		 */
+		remove: function () {
+			this.each(function (i, item) {
+				item.parentElement && item.parentElement.removeChild(item)
+			})
+			return this;
+		},
+				
 		data: function (key, value) {
 			return access(this, function (item, key, value) {
 				if(!item[dataKey]){
