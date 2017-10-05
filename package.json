@@ -1,6 +1,6 @@
 {
   "name": "my-jquery",
-  "version": "2.0.0",
+  "version": "0.2.0",
   "description": "一个jquery的模拟实现",
   "scripts": {
     "test": "mocha ./test/test.js"
