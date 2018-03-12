@@ -1,5 +1,7 @@
+declare function factory(doc: Document): JQueryStatic
+
 declare module 'my-jquery' {
-    export = $;
+    export = factory
 }
 
 type JQuerySeletor = string | {length: number} | Element
@@ -49,6 +51,5 @@ interface JQueryStatic {
     toggle(eventName: string): this;
 }
 
-declare function factory(doc: Document): JQueryStatic
 
 export default factory
