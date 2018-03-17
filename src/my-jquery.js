@@ -8,8 +8,6 @@
 	}
 })(typeof window !== "undefined" ? window : this, function (document) {
 
-	//用于使用innerHTML生成dom的div
-	var div = document.createElement("DIV");
 	//用于插入使用的DocumentFragment
 	var fragment = document.createDocumentFragment();
 
@@ -18,6 +16,8 @@
 		selector = selector.trim();
 		//如果是构建字符串，需要判断是否是<>格式，如果不是表示是选择器
 		if(selector.startsWith("<")){
+			//用于使用innerHTML生成dom的div
+			var div = document.createElement("DIV");
 			div.innerHTML = selector;
 			return $(div.children);
 		} else {
