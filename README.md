@@ -49,3 +49,8 @@ addClass、removeClass、hasClass、toggleClass、hide、show、css
 
 ## 事件相关 event
 on、off、toggle
+
+# 兼容性
+兼容ie9-11，及其他现代浏览器
+
+Compatible with ie9-11, and other modern browsers

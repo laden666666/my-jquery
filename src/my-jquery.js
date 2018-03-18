@@ -15,7 +15,7 @@
 	function buildHTML(selector) {
 		selector = selector.trim();
 		//如果是构建字符串，需要判断是否是<>格式，如果不是表示是选择器
-		if(selector.startsWith("<")){
+		if(selector[0] === "<"){
 			//用于使用innerHTML生成dom的div
 			var div = document.createElement("DIV");
 			div.innerHTML = selector;
@@ -112,7 +112,7 @@
 				//如果是字符串，表示可能是选择器，或者是构建字符串
 				selector = selector.trim();
 				//如果是构建字符串，需要判断是否是<>格式，如果不是表示是选择器
-				if(selector.startsWith("<")){
+				if(selector[0] === "<"){
 					return $(buildHTML(selector));
 				} else {
 					//如果不是，说明是选择器，直接选择
