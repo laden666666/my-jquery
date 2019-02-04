@@ -90,7 +90,7 @@
 	// 将class转为字符串数组
 	// 修复#6，因为ie9不支持classList，所以重构这里面代码
 	function class2Map(classStr) {
-		let arr = (classStr.nodeType === 1 ? classStr.className : classStr).split(/\s+/g), map = {}
+		var arr = (classStr.nodeType === 1 ? classStr.className : classStr).split(/\s+/g), map = {}
 		for(var i = 0; i < arr.length; i++){
 			map[arr[i]] = true
 		}
@@ -98,7 +98,7 @@
 		return map
 	}
 	function map2Class(map) {
-		let arr = []
+		var arr = []
 		for(var key in map){
 			arr.push(key)
 		}
@@ -285,7 +285,7 @@
 		addClass: function (className) {
 			return this.each(function (i, item) {
 				if(className) {
-					let map = class2Map(item)
+					var map = class2Map(item)
 					map[className] = true
 					item.className = map2Class(map)
 				}
@@ -295,7 +295,7 @@
 		removeClass: function (className) {
 			return this.each(function (i, item) {
 				if(className) {
-					let map = class2Map(item)
+					var map = class2Map(item)
 					delete map[className]
 					item.className = map2Class(map)
 				}
@@ -309,7 +309,7 @@
 		toggleClass: function (className) {
 			return this.each(function (i, item) {
 				if(className) {
-					let map = class2Map(item)
+					var map = class2Map(item)
 					if(map[className]){
 						delete map[className]
 					} else {
