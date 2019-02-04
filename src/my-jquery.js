@@ -87,6 +87,25 @@
 		}
 	}
 
+	// 将class转为字符串数组
+	// 修复#6，因为ie9不支持classList，所以重构这里面代码
+	function class2Map(classStr) {
+		let arr = (classStr.nodeType === 1 ? classStr.className : classStr).split(/\s+/g), map = {}
+		for(var i = 0; i < arr.length; i++){
+			map[arr[i]] = true
+		}
+
+		return map
+	}
+	function map2Class(map) {
+		let arr = []
+		for(var key in map){
+			arr.push(key)
+		}
+
+		return arr.join(' ')
+	}
+
 	//防止冲突的id
 	var $$mjid = ("" + Date.now() +  Math.random()).replace('.', '');
 	//dom缓存的key
@@ -266,7 +285,9 @@
 		addClass: function (className) {
 			return this.each(function (i, item) {
 				if(className) {
-					item.classList.add(className)
+					let map = class2Map(item)
+					map[className] = true
+					item.className = map2Class(map)
 				}
 			});
 		},
@@ -274,23 +295,27 @@
 		removeClass: function (className) {
 			return this.each(function (i, item) {
 				if(className) {
-					item.classList.remove(className)
+					let map = class2Map(item)
+					delete map[className]
+					item.className = map2Class(map)
 				}
 			});
 		},
 
 		hasClass: function (className) {
-			return this.length ? this[0].classList.contains(className) : false;
+			return this.length ? !!(class2Map(this[0])[className]) : false;
 		},
 
 		toggleClass: function (className) {
 			return this.each(function (i, item) {
 				if(className) {
-					if(item.classList.contains(className)){
-						item.classList.remove(className);
+					let map = class2Map(item)
+					if(map[className]){
+						delete map[className]
 					} else {
-						item.classList.add(className);
+						map[className] = true
 					}
+					item.className = map2Class(map)
 				}
 			});
 		},
