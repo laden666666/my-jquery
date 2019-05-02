@@ -40,4 +40,4 @@ export type MyJQuery = {
     off(eventName: string, fn: Function): MyJQuery;
     toggle(eventName: string): MyJQuery;
 }
-export type JQuerySeletor = string | {length: number} | Element
+export type JQuerySeletor = string | {length: number} | Element | DocumentFragment

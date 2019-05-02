@@ -73,7 +73,7 @@
 	//删除dom时候使用
 	function clearData(item) {
 		var arr;
-		if(item.nodeType == 1){
+		if(item.nodeType == 1 || item.nodeType == 11){
 			delete item[dataKey];
 			arr = item.children;
 		} else if(item && item.length != null){
@@ -125,7 +125,7 @@
 				//类似数组就表示是数组。遍历数组或者是$.init对象，如果里面是dom元素封装返回
 				for(var i = 0,length = 0; i < selector.length; i++){
 					var dom = selector[i];
-					if(dom && dom.nodeType == 1){
+					if(dom && (dom.nodeType == 1 || dom.nodeType == 11)){
 						this[length] = dom;
 						length++;
 					}
@@ -159,7 +159,7 @@
 
 		//往集合增加一个dom
 		add: function (item) {
-			if(item && item.nodeType == 1){
+			if(item && item.nodeType == 1 && item.nodeType == 11){
 				this[this.length++] = item;
 			}
 			return this;
