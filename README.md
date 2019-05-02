@@ -33,7 +33,7 @@ Currently supported by jQueryAPi
 each
 
 ## 选择器相关 selector
-eq、add、find
+eq、add、find、children、parent
 
 ## DOM操作相关 DOM operation
 append、appendTo、prepend、prependTo、after、insertAfter、before、insertBefore、clone、remove
