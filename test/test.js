@@ -329,7 +329,6 @@ describe('dom相关操作', function () {
             }
         });
     });
-    
 
     it('myjquery的remove函数', function (done) {
         
@@ -355,6 +354,37 @@ describe('dom相关操作', function () {
                 var $ = window.$;
                 $("#div span").remove()
                 assert.equal($("#div span").length, 0);
+                done();
+            }
+        });
+    });
+
+    it('对DocumentFragment的支持', function (done) {
+        
+        var htmlTemplate =
+            `<html>
+            <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            </head>
+            <body>
+                <div id="div">
+                </div>
+            </body>
+        </html>`;
+
+        var jsdom = require('jsdom');
+        jsdom.env({
+            html: htmlTemplate,
+            src: [myjquery],
+            done: function (error, window) {
+                var $ = window.$;
+                var document = window.document;
+                assert.equal($("#div span").length, 0);
+                var docFragment = $(document.createDocumentFragment())
+                docFragment.append('<span>1</span>')
+                docFragment.append('<span>2</span>')
+                $('#div').append(docFragment)
+                assert.equal($("#div span").length, 2);
                 done();
             }
         });
