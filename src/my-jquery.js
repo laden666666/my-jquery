@@ -47,6 +47,23 @@
 		});
 	}
 
+	// 判断element是否符合选择器
+	var matches = Element.prototype.matches || Element.prototype.msMatchesSelector
+	function elsMatches(el, selector){
+		if(!selector) return el
+		var arr = [], selectors = selector.split(',')
+		for(var i in [].slice.call(el)){
+			selectors:
+			for(var j = 0; j < selectors.length; j++){
+				if(matches.call(el[i], selectors[j])){
+					arr.push(el[i])
+					break selectors;
+				}
+			}
+		}
+		return arr
+	}
+
 	//一个模板,用于生成setter和getter重载函数
 	function access(myjq, setter, getter, key, value) {
 		//是否是setter方法,如果是setter方法,value不能是undefined
@@ -127,7 +144,7 @@
 				return this;
 			}
 
-			if(typeof selector == "string"){
+			if(typeof selector === 'string'){
 				//如果是字符串，表示可能是选择器，或者是构建字符串
 				selector = selector.trim();
 				//如果是构建字符串，需要判断是否是<>格式，如果不是表示是选择器
@@ -188,6 +205,20 @@
 		find: function(selector){
 			return access(this,null,function (dom, selector) {
 				return $(dom.querySelectorAll(selector));
+			},selector)
+		},
+
+		// 获取所有children节点
+		children: function(selector){
+			return access(this,null,function (dom, selector) {
+				return $(elsMatches(dom.children, selector))
+			},selector)
+		},
+
+		// 获得所有节点的
+		parent: function(selector){
+			return access(this,null,function (dom, selector) {
+				return $(elsMatches([dom.parentElement], selector))
 			},selector)
 		},
 

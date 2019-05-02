@@ -5,6 +5,8 @@ export type MyJQuery = {
     eq(i: number): MyJQuery;
     add(item: Element): MyJQuery;
     find(selector: string): MyJQuery;
+    children(selector: string): MyJQuery;
+    parent(selector: string): MyJQuery;
     append(child: JQuerySeletor): MyJQuery;
     appendTo(parent: JQuerySeletor): MyJQuery;
     prepend(child: JQuerySeletor): MyJQuery;

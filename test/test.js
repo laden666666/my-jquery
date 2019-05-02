@@ -40,17 +40,52 @@ describe('myjquery选择器', function () {
         });
     });
 
-    it('myjquery的find函数', function (done) {
+    it('myjquery的children函数', function (done) {
         var jsdom = require('jsdom');
         jsdom.env({
-            html: htmlTemplate,
+            html: `<html>
+            <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            </head>
+            <body>
+                <div id="div"> 
+                    <h1 id="h1"class="h1">h1</h1>
+                    <h2 id="h2"class="h2">h2</h2>
+                </div>
+            </body>
+        </html>`,
             src: [myjquery],
             done: function (error, window) {
                 var $ = window.$;
                 var div = $("#div");
-                assert.equal(div.find("#h2").text(), 'h2');
-                assert.equal(div.find("h2").text(), 'h2');
-                assert.equal(div.find(".h2").text(), 'h2');
+                assert.equal(div.children().length, 2);
+                assert.equal(div.children('h1').length, 1);
+                assert.equal(div.children('h1, #h2').length, 2);
+                done();
+            }
+        });
+    });
+
+    it('myjquery的parent函数', function (done) {
+        var jsdom = require('jsdom');
+        jsdom.env({
+            html: `<html>
+            <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            </head>
+            <body>
+                <div id="div"> 
+                    <h1 id="h1"class="h1">h1</h1>
+                </div>
+            </body>
+        </html>`,
+            src: [myjquery],
+            done: function (error, window) {
+                var $ = window.$;
+                var h1 = $("#h1");
+                assert.equal(h1.parent().length, 1);
+                assert.equal(h1.parent('#div').length, 1);
+                assert.equal(h1.parent('#h1').length, 0);
                 done();
             }
         });
